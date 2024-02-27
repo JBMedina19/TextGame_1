@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.SearchService;
 
 public class TestScript : MonoBehaviour
 {
@@ -13,14 +14,21 @@ public class TestScript : MonoBehaviour
     public TextMeshProUGUI healthValue, currencyValue;
     public int healthPoints, currencyPoints;
 
+
+    public GameObject[] Scenes;
+    //which scene should be active
+    public int ActiveScene; 
     // Start is called before the first frame update
     void Start()
     {
         // cube.transform.localScale = new Vector3(x, y, z);
-        scene_1.SetActive(true);
+        //scene_1.SetActive(true);
+        Scenes[0].SetActive(true);
         stats.SetActive(false);
     }
 
+
+    
     // Update is called once per frame
     void Update()
     {
@@ -36,19 +44,30 @@ public class TestScript : MonoBehaviour
         {
             endingScene.SetActive(true);
         }
+        SceneChanger();
+
+
     }
     
+    public void SceneChanger()
+    {
+        for (int i = 0; i < Scenes.Length; i++)
+        {
+            //= : declare or assigning values, == validation and checking
+            Scenes[i].SetActive(i == ActiveScene);
+            //ActiveScene = 2
+            //All Scene except 2 will be Active = True and else Active = false;
+            //Scene[99].SetActive(i == 2);
+        }
+    }
     public void StartButton()
     {
-        scene_1.SetActive(false);
-        scene_2.SetActive(true);
-        stats.SetActive(true);
+        ActiveScene = 1;
     }
 
     public void SecondFloorButton()
     {
-        scene_2.SetActive(false);
-        scene_3.SetActive(true);
+        ActiveScene = 2;
     }
     public void ShawarmaButton() 
     {
